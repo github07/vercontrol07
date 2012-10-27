@@ -1,0 +1,14 @@
+We need to compile our library source code into position-independent code (PIC):
+	$ gcc -c -Wall -Werror -fpic foo.c
+
+Now we need to actually turn this object file into a shared library. We’ll call it libfoo.so:
+
+	$gcc -shared -o libfoo.so foo.o
+
+We need to tell GCC where to find libfoo.so
+	$ gcc -L/home/username/foo -Wall -o test main.c -lfoo
+We add the directory name to the LD_LIBRARY_PATH variable.
+	LD_LIBRARY_PATH=path:$LD_LIBRARY_PATH
+	export LD_LIBRARY_PATH
+Now running the fill ./test will work....
+These commands can be saved in a script that will do the whole task.
